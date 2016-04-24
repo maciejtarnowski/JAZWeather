@@ -8,10 +8,14 @@ public class OpenWeatherClient implements WeatherClient {
     private final static String apiKey = "470db4605f89e75b2a905bd8bd09f9ff";
     private final static String endpoint = "http://api.openweathermap.org/data/2.5";
 
-    public String get(String url) {
-        Client client = Client.create(new DefaultClientConfig());
+    private Client httpClient;
 
-        WebResource resource = client.resource(endpoint + getUrlWithMandatoryParams(url));
+    public OpenWeatherClient(Client httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    public String get(String url) {
+        WebResource resource = httpClient.resource(endpoint + getUrlWithMandatoryParams(url));
 
         return resource.type("application/json").get(String.class);
     }
@@ -27,7 +31,7 @@ public class OpenWeatherClient implements WeatherClient {
     }
 
     private String joinUrlWithMandatoryParamsUsingString(String url, String glue) {
-        return url + glue + getAppIdParameter() + "&unit=metric";
+        return url + glue + getAppIdParameter() + "&units=metric";
     }
 
     private String getAppIdParameter() {
