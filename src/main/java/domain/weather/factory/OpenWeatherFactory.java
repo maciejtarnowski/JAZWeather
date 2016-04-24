@@ -9,6 +9,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import static java.lang.Math.toIntExact;
+
 public class OpenWeatherFactory implements WeatherFactory {
     private JSONParser jsonParser;
 
@@ -32,7 +34,7 @@ public class OpenWeatherFactory implements WeatherFactory {
     }
 
     private Clouds getClouds(JSONObject parsedData) {
-        return new Clouds((Integer) getCloudsObject(parsedData).get("all"));
+        return new Clouds(toIntExact((long) getCloudsObject(parsedData).get("all")));
     }
 
     private WindSpeed getWindSpeed(JSONObject parsedData) {
@@ -40,7 +42,7 @@ public class OpenWeatherFactory implements WeatherFactory {
     }
 
     private Pressure getPressure(JSONObject parsedData) {
-        return new Pressure((Integer) getMainObject(parsedData).get("pressure"));
+        return new Pressure(toIntExact((long) getMainObject(parsedData).get("pressure")));
     }
 
     private Temperature getTemperature(JSONObject parsedData) {
