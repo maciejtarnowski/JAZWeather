@@ -1,10 +1,18 @@
 package domain.city;
 
+import com.github.slugify.Slugify;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CityRepository {
+    private Slugify slugify;
+
     private List<City> cities;
+
+    public CityRepository(Slugify slugify) {
+        this.slugify = slugify;
+    }
 
     public void init() {
         cities = new ArrayList<>();
@@ -23,5 +31,14 @@ public class CityRepository {
             throw new RepositoryNotInitializedException("Repository is not initialized");
         }
         return cities;
+    }
+
+    public City getBySlug(String slug) throws RepositoryNotInitializedException, RepositoryException {
+        for (City city : getAll()) {
+            if (slug.equals(slugify.slugify(city.getName()))) {
+                return city;
+            }
+        }
+        throw new RepositoryException("City not found");
     }
 }
