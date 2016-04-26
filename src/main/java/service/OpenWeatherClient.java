@@ -4,7 +4,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
-public class OpenWeatherClient implements WeatherClient {
+public class OpenWeatherClient {
     private final static String apiKey = "470db4605f89e75b2a905bd8bd09f9ff";
     private final static String endpoint = "http://api.openweathermap.org/data/2.5";
 

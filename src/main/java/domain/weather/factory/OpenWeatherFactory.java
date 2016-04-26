@@ -11,14 +11,13 @@ import org.json.simple.parser.ParseException;
 
 import static java.lang.Math.toIntExact;
 
-public class OpenWeatherFactory implements WeatherFactory {
+public class OpenWeatherFactory {
     private JSONParser jsonParser;
 
     public OpenWeatherFactory(JSONParser jsonParser) {
         this.jsonParser = jsonParser;
     }
 
-    @Override
     public Weather getByString(String response) throws FactoryException {
         JSONObject parsedResponse = parseJson(response);
 
