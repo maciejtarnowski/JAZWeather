@@ -1,18 +1,18 @@
 package domain.weather.parameter;
 
 public class Pressure {
-    private Integer value;
+    private Double value;
 
-    public Pressure(Integer value) {
+    public Pressure(Double value) {
         this.value = value;
     }
 
     public Integer getValue() {
-        return value;
+        return value.intValue();
     }
 
     @Override
     public String toString() {
-        return value + " hPa";
+        return getValue() + " hPa";
     }
 }

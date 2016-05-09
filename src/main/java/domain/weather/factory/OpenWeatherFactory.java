@@ -1,5 +1,6 @@
 package domain.weather.factory;
 
+import domain.city.City;
 import domain.weather.Weather;
 import domain.weather.parameter.Clouds;
 import domain.weather.parameter.Pressure;
@@ -18,10 +19,10 @@ public class OpenWeatherFactory {
         this.jsonParser = jsonParser;
     }
 
-    public Weather getByString(String response) throws FactoryException {
+    public Weather getByString(City city, String response) throws FactoryException {
         JSONObject parsedResponse = parseJson(response);
 
-        return new Weather(getTemperature(parsedResponse), getPressure(parsedResponse), getWindSpeed(parsedResponse), getClouds(parsedResponse));
+        return new Weather(city, getTemperature(parsedResponse), getPressure(parsedResponse), getWindSpeed(parsedResponse), getClouds(parsedResponse));
     }
 
     private JSONObject parseJson(String response) throws FactoryException {
@@ -41,7 +42,7 @@ public class OpenWeatherFactory {
     }
 
     private Pressure getPressure(JSONObject parsedData) {
-        return new Pressure(toIntExact((long) getMainObject(parsedData).get("pressure")));
+        return new Pressure(Double.valueOf(getMainObject(parsedData).get("pressure").toString()));
     }
 
     private Temperature getTemperature(JSONObject parsedData) {

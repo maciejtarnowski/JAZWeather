@@ -18,6 +18,7 @@ public class OpenWeatherRepository implements WeatherRepository {
     public Weather getByCity(City city) throws RepositoryException {
         try {
             return factory.getByString(
+                    city,
                     client.get("/weather?id=" + city.getCityId())
             );
         } catch (FactoryException e) {
